@@ -1,0 +1,34 @@
+MVP
+	[ ] models
+	[ ] admin
+	[ ] watcher.py
+		[ ] check url func
+	[ ] management command that does the work
+		[ ] email results
+	[ ] Rules
+		[ ] text contains
+
+For production release
+	[ ] html e-mail 
+	[ ] tests
+	[ ] Public git repo, setup.py
+	[ ] Login As
+	[ ] Additonal rules
+		[ ] Context variable checking?
+	[ ] Settings
+	[ ] More advanced e-mail
+
+For friendly external release
+	[ ] Test install it in a fresh django stack
+	[ ] Migrations
+	[ ] Docs
+	[ ] License
+
+For public release
+	[ ] Good Docs
+	[ ] Sample Project
+	[ ] AUTHORS file
+
+Ideas to explore
+	[ ] Generator command that looks at urls.py and tries to do it
+	[ ] Parse 

@@ -1,0 +1,4 @@
+Django Plugin/App that will regularly check urls and alerting you if criteria isn't met.
+
+Handy for verifying that production urls always contain expected data. 
+
