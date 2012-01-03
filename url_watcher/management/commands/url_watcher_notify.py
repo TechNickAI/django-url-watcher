@@ -3,7 +3,7 @@ from django.core.mail import send_mail
 from django.core.management.base import BaseCommand, CommandError
 from optparse import make_option
 from url_watcher.models import Request
-from url_watcher.watcher import check_request_rules
+from url_watcher.watcher import check_request_rules, create_django_response
 
 class Command(BaseCommand):
 
@@ -27,7 +27,8 @@ class Command(BaseCommand):
         for request in Request.objects.all():
             if options["verbosity"] >= 2:
                 print "Checking %s" % str(request)
-                response, errors = check_request_rules(request)
+                django_response = create_django_response(request.path)
+                errors = check_request_rules(request, django_response)
 
                 if len(errors) > 0:
                     output += "\n".join(errors)
