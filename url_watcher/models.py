@@ -16,12 +16,16 @@ class Request(models.Model):
 
 class RequestRule(models.Model):
     OPERATOR_CHOICES = (
-        (u'contains', u'contains'),
-        (u'!contains', u'does not contain')
+        ('contains', 'contains'),
+        ('!contains', 'does not contain'),
+        ('=', 'equals'),
+        ('!=', 'not equal'),
+        ('<', 'less than'),
+        ('>', 'greater than')
     )
 
     request = models.ForeignKey(Request)
-    target = models.CharField(max_length = 255)
+    target = models.CharField(max_length = 255, verbose_name = "Where to look")
     operator = models.CharField(max_length = 255, choices = OPERATOR_CHOICES)
     value = models.CharField(max_length = 255, verbose_name = "What to look for")
 

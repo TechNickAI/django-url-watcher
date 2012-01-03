@@ -12,8 +12,20 @@ class UrlWatcherTest(TestCase):
     def test_operators(self):
         self.assertTrue(check_operator(self.text, 'contains', "Teletubbies"), "contains true") 
         self.assertFalse(check_operator(self.text, 'contains', "not there"), "contains False") 
+
         self.assertTrue(check_operator(self.text, '!contains', "not there"), "!contains true") 
         self.assertFalse(check_operator(self.text, '!contains', "Teletubbies"), "!contains false") 
+
+        self.assertTrue(check_operator("test", '=', "test"), "equals true") 
+        self.assertFalse(check_operator("test", '=', "not test"), "equals false") 
+
+        self.assertTrue(check_operator("test", '!=', "not test"), "!equals true") 
+        self.assertFalse(check_operator("test", '!=', "test"), "!equals false") 
+
+        self.assertTrue(check_operator("1", "<", "2"), "1 < 2") 
+
+        self.assertTrue(check_operator("2", ">", "1"), "2 > 1") 
+
         self.assertRaises(Exception, check_operator, self.text, 'unknown operator', 'footext')
 
     def test_create_django_response(self):

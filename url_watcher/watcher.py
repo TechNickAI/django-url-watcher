@@ -33,10 +33,25 @@ def check_request_rules(watcher_request, django_response):
 
 
 def check_operator(to_check, operator, value):
+
+    def int_or_0(value) :
+        try: 
+            return int(value)
+        except:
+            return 0
+        
     if operator == "contains":
         return value.lower() in to_check.lower()
     elif operator == "!contains":
         return value.lower() not in to_check.lower()
+    elif operator == "=":
+        return value == to_check
+    elif operator == "!=":
+        return value != to_check
+    elif operator == "<":
+        return int_or_0(to_check) < int_or_0(value)
+    elif operator == ">":
+        return int_or_0(to_check) > int_or_0(value)
     else:
         raise Exception("Invalid operator - %s" % operator)
 
