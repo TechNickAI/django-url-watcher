@@ -38,9 +38,20 @@ class UrlWatcherTest(TestCase):
         self.assertEqual(len(check_request_rules(request, django_response)), 0)
 
         # add a rule that fails
-        rule2 = RequestRule(request = request, target = "content", operator = "contains", value = "not there")
+        rule2 = RequestRule(request = request, target = "content", operator = "!contains", value = "Teletubbies")
         rule2.save()
         self.assertEqual(len(check_request_rules(request, django_response)), 1)
+
+
+        # Done testing requests, now test functionality on the models that have been created
+        # str the request to test the __unicode__ method
+        str(request) 
+
+        # Test the display_operator
+        self.assertEqual(rule2.display_operator, "does not contain")
+        rule2.operator='foo'
+        # Should not fail on unrecognized operator
+        self.assertEqual(rule2.display_operator, "foo")
 
 
     # TODO: Test the django management command.
