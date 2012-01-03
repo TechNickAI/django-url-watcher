@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.test import TestCase
 from watcher import create_django_response, check_operator, check_request_rules
 from models import Request, RequestRule
@@ -15,6 +16,32 @@ class UrlWatcherTest(TestCase):
         response = create_django_response("/foo")
         self.assertEqual(response.status_code, 404, "status code on create_django_response")
         self.assertTrue("File not found" in response.content, "content on create_django_response")
+
+    def test_requests(self):
+        request = Request(path = "/foo")
+        request.save()
+        django_response = HttpResponse(self.text)
+
+        # No rules, should pass
+        self.assertEqual(len(check_request_rules(request, django_response)), 0)
+
+        # Should have one error now that the status is not 200
+        django_response.status_code = 442
+        self.assertEqual(len(check_request_rules(request, django_response)), 1)
+        
+        # set it back for the rest of the tests
+        django_response.status_code = 200
+        self.assertEqual(len(check_request_rules(request, django_response)), 0)
+
+        rule1 = RequestRule(request = request, target = "content", operator = "contains", value = "Teletubbies")
+        rule1.save()
+        self.assertEqual(len(check_request_rules(request, django_response)), 0)
+
+        # add a rule that fails
+        rule2 = RequestRule(request = request, target = "content", operator = "contains", value = "not there")
+        rule2.save()
+        self.assertEqual(len(check_request_rules(request, django_response)), 1)
+
 
     # TODO: Test the django management command.
         
