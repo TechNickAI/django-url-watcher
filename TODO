@@ -1,29 +1,29 @@
 MVP
 	[X] models
 	[X] admin
-	[ ] watcher.py
-		[ ] check url func
-	[ ] management command that does the work
-		[ ] email results
-	[ ] Rules
-		[ ] text contains
-		[ ] text not contains
+	[X] watcher.py
+		[X] check url func
+	[X] management command that does the work
+		[X] email results
+	[X] Rules
+		[X] text contains
+		[X] text not contains
 
 For production release (to be useful for Krux)
-	[ ] html e-mail 
-	[ ] tests
 	[ ] Public git repo, setup.py
 	[ ] Login As
 	[ ] Additonal rules
 		[ ] Context variable checking?
 	[ ] Settings
-	[ ] More advanced e-mail
+	[ ] html e-mail that includes html response
 
 For friendly external release
+	[ ] tests
 	[ ] Test install it in a fresh django stack
 	[ ] Migrations
 	[ ] Docs
 	[ ] License
+	[ ] Fix so that login-as doesn't increment "last logged in"
 
 For public release
 	[ ] Good Docs
@@ -33,3 +33,4 @@ For public release
 Ideas to explore
 	[ ] Generator command that looks at urls.py and tries to do it
 	[ ] Parse 
+	[ ] Notify Email per request?
