@@ -1,7 +1,11 @@
+from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.test import TestCase
 from watcher import create_django_response, check_operator, check_request_rules
 from models import Request, RequestRule
+
+TEST_USER = "UrlWatcherUser"
+TEST_PASS = "b00bies"
 
 class UrlWatcherTest(TestCase):
 
@@ -13,7 +17,8 @@ class UrlWatcherTest(TestCase):
         self.assertRaises(Exception, check_operator, self.text, 'unknown operator', 'footext')
 
     def test_create_django_response(self):
-        response = create_django_response("/foo")
+        request = Request(path = "/foo")
+        response = create_django_response(request)
         self.assertEqual(response.status_code, 404, "status code on create_django_response")
         self.assertTrue("File not found" in response.content, "content on create_django_response")
 
@@ -52,6 +57,16 @@ class UrlWatcherTest(TestCase):
         rule2.operator='foo'
         # Should not fail on unrecognized operator
         self.assertEqual(rule2.display_operator, "foo")
+
+
+    def test_login_as(self):
+        user = User.objects.create_user(username = TEST_USER, password = TEST_PASS, email = TEST_USER)
+
+        request = Request(path = "/foo", login_as_user = user)
+        request.save()
+
+        response = create_django_response(request)
+        self.assertTrue(response.context["user"].is_authenticated())
 
 
     # TODO: Test the django management command.

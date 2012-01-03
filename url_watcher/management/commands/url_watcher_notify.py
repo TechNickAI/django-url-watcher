@@ -27,7 +27,7 @@ class Command(BaseCommand):
         for request in Request.objects.all():
             if options["verbosity"] >= 2:
                 print "Checking %s" % str(request)
-                django_response = create_django_response(request.path)
+                django_response = create_django_response(request)
                 errors = check_request_rules(request, django_response)
 
                 if len(errors) > 0:

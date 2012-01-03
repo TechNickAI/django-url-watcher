@@ -1,7 +1,9 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 class Request(models.Model):
     path = models.CharField(max_length=1024, help_text = "The relative url to request. Ex: '/search?q=test'", verbose_name = "Request Path")
+    login_as_user = models.ForeignKey(User, blank = True, help_text = "User to login-as. Blank for anonymous", null = True)
     comments = models.TextField(blank = True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True, auto_now=True)
@@ -26,7 +28,7 @@ class RequestRule(models.Model):
     @property
     def display_operator(self):
         try:
-            operator = dict(RequestRule.OPERATOR_CHOICES)[self.name]
+            operator = dict(RequestRule.OPERATOR_CHOICES)[self.operator]
             return operator
         except:
             return self.operator

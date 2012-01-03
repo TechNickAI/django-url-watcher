@@ -10,8 +10,8 @@ MVP
 		[X] text not contains
 
 For production release (to be useful for Krux)
-	[ ] Public git repo, setup.py
-	[ ] Login As
+	[X] Public git repo, setup.py
+	[X] Login As
 	[ ] Additonal rules
 		[ ] Context variable checking?
 	[ ] Settings
