@@ -1,14 +1,15 @@
 MVP
-	[ ] models
-	[ ] admin
+	[X] models
+	[X] admin
 	[ ] watcher.py
 		[ ] check url func
 	[ ] management command that does the work
 		[ ] email results
 	[ ] Rules
 		[ ] text contains
+		[ ] text not contains
 
-For production release
+For production release (to be useful for Krux)
 	[ ] html e-mail 
 	[ ] tests
 	[ ] Public git repo, setup.py
