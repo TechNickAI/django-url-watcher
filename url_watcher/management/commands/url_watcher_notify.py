@@ -33,6 +33,11 @@ class Command(BaseCommand):
                 if len(errors) > 0:
                     output += "\n".join(errors)
 
+        # All good
+        if output == "":
+            if options["verbosity"] >= 2:
+                print "No errors found"
+            return
 
         if options["dry_run"]:
             print output 
